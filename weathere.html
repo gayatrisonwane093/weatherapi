@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        .flex-container{
+            width: 100%;  
+            display: flex;
+            flex-direction: row;
+            background-color:#48484A;
+            opacity: 0.6;
+            opacity: 0.9; 
+            position: relative;   
+        }
+         nav{
+			color: #f2f2f2;
+            display: flex;
+		}
+        ul li{
+			display: inline-block;
+            font-size: 17px;
+            font-family: Arial, sans-serif;	 
+		}
+		ul li a{
+			text-decoration: none;
+			color: white;
+			padding: 10px;
+		}
+        .head{
+            font-family: "Space Grotesk", Arial, sans-serif !important;
+            margin-left: 19%;
+            margin-top: -19%;
+        }
+        .h1{
+            font-size: 50px;
+        }
+        .p{
+            width: 40%;
+            font-size: 28px;
+            color: #ffffff;
+            font-weight: 700;
+            padding-top: 45px;
+            line-height: 30px;
+        }
+        .box{
+            background-color: #f2f2f2;
+            width: 100%;
+            height: 180px;
+        }
+        .int{
+            margin-top: 8%;
+            padding: 8px;
+            width:33%;
+            font-size: 17px;
+            margin-left: 19%;
+            border-radius: 8px;
+            border: none;
+        }
+        .btn1{
+            padding: 8px;
+            border: none;
+            font-size: 17px;
+            background-color: #48484a;
+            color: #f2f2f2;
+            font-family: "Space Grotesk", Arial, sans-serif !important;   
+        }
+        .content{
+            width: 25%;
+            padding: 40px 40px;
+            text-align: center;
+            color:black;
+            font-weight: 600;
+            margin-left: 21%;
+            margin-top: 10px;
+            border-radius: 10px;
+            background-color: #f2f2f2;
+        }
+        h3{
+            font-size: 32px;
+            color:#eb6e4b;
+            font-weight: 700;
+            
+        }
+        h6{
+            font-size: 18px;
+            padding-top: 8px;
+            padding-bottom: 7px;
+        }
+        h2{
+            font-size: 34px;
+        }
+        p{
+            font-size: 19px;
+        }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="flex-container pt-2 pb-1">
+        <nav>
+            <ul>  
+                <img class="ms-3" src="logo_white_cropped.png"width="110px">
+                <li style="margin-left: 60px;"><span class="material-symbols-outlined" style="opacity: 0.9; position: absolute;top: 19px;left: 205px;"> search</span><a style="opacity: 0.5;">weather in your city</a></li>       
+                <li><a href="#">Guide</a></li>
+                <li><a href="#">API</a></li>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Marketplace</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Maps</a></li>
+                <li><a href="#">Our Initiatives</a></li>
+                <li><a href="#">Partners</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#" style="border-radius: 50px;background-color: #f2f2f266; margin-left: 5px;margin-right: 5px;">For Busines </a></li>
+                <li><a href="#">Sign in</a></li>
+                <li><a href="#">Support</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="img"><img src="autumn_banner_main_page - Copy.jpg"width="100%"height="190%">
+        <div class="head">
+            <h1 class="h1" style="color:#eb6e4b; font-weight: 600;">OpenWeather</h1>
+            <p class="p">Weather forecasts, nowcasts and history in a fast and elegant way</p>
+        </div>
+        <form action="#" class="box">
+            <input class="int" type="text" id="city_name" placeholder="search city">
+            <button type="button" onclick="getweatherDate()">search</button>
+        </form>
+        <div class="weather_container">
+            <div id="myDIV" class="content">
+                <div class="weather"></div>
+                <h3 id="location"></h3> 
+                <h6 id="last_updt"></h6>
+                <h2 id="current_temp"></h2>
+                <p id="current_weather"></p>
+            </div>
+        </div>
+
+    <script>
+        function getweatherDate(){
+                var city = document.getElementById("city_name").value;
+                console.log(city);
+                axios.get("http://api.weatherapi.com/v1/current.json?key=ecbb8c01dc854b5cb3e71114233110&q="+city+"&aqi=no")
+            .then((response)=>{
+                console.log(response.data);
+                var currentDay = response.data.current;
+                var location = response.data.location;
+                console.log(currentDay);
+                document.getElementById('location').innerText = location.name + "- (now)";
+                document.getElementById('last_updt').innerText = currentDay.last_updated;
+                document.getElementById('current_temp').innerText = currentDay.temp_c +' c'; 
+                document.getElementById('current_weather').innerText = currentDay.condition.text; 
+            })
+        }
+    </script>
+        
+       
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
